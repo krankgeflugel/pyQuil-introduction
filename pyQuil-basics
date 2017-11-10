@@ -1,6 +1,4 @@
 
-# coding: utf-8
-
 # Some notes on Python before we start. 
 # An object is a particular instance of a class. In this case (pyquil) we have the class Program, 
 # where each -program- we define is an object, i.e. an instance of the class.
@@ -11,7 +9,12 @@
 # Methods, are functions associated to an object. When I code Program.inst(...) I am calling a method
 # associated to the object Program. 
 # 
-# These are key differences I need to drill into my head.
+# These are key differences we should learn first.
+#
+# In the following simple lines of code, I have mostly followed the instructions from the official pyQuil
+# documentation from Rigetti. I have however added few comments, that I hope can be useful for new users.
+# Note, this .py file comes from a Jupyter Notebook, hence the # In[x] headers. I suggest you use Jupyter
+# to run this code, and also for your future projects.
 
 # In[1]:
 
@@ -38,6 +41,7 @@ qvm = api.SyncConnection()
 # to an object program. It is good to learn these names and concepts.
 
 p = pq.Program()
+
 # I add a Pauli-X gate to the [0] qubit, then I call the 'measure' method to
 # measure the [0] qubit and save the outcome in the [0] classical register.
 p.inst(X(0)).measure(0, 0)
@@ -52,6 +56,7 @@ print(p)
 # In[13]:
 
 classical_regs = [0] # A list of which classical registers to return the values of.
+
 # Now I use the run method to run the program on the qvm
 qvm.run(p, classical_regs)
 
@@ -68,9 +73,11 @@ qvm.run(p, classical_regs_v2)
 # In[21]:
 
 # Check this to understand better:
+
 p=pq.Program() #clear the old program
 p.inst(X(0)).measure(0,1)
 qvm.run(p, classical_regs_v2)
+
 # Now I save the outcome in the second classical register, i.e. [1]
 
 
@@ -354,9 +361,5 @@ p = pq.Program().inst(X(0)).measure(0,0)
 print("Without noise: {}".format(qvm.run(p,[0],20)))
 print("With noise: {}".format(noisy_qvm.run(p, [0], 20)))
 # You can now appreciate the difference between the two runs of the same program
-
-
-# In[ ]:
-
 
 
